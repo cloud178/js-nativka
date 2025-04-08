@@ -100,6 +100,23 @@ class __Car {
 }
 
 
-
-
-
+// ещё один js модификатор доступа через #, но вроде как больше юзают тайпскриптовые модидфикаторы доступа
+class ___Car {
+    #brand: string // теперь это св-во приватное (private). аналог синтаксиса private brand: string
+    // public maxSpeed: number // эквивалентно записи ниже
+    maxSpeed: number
+    constructor(brand: string, maxSpeed: number) {
+        if (brand === 'lada') throw Error()
+        this.#brand = brand
+        this.maxSpeed = maxSpeed
+    }
+    private startEngine() { // метод тоже можно сделать приватным
+        console.log(`${this.#brand} engine is started`)
+    }
+}
+// приватные св-ва закрыты к модификации извне, т.е. я не могу достучаться до св-ва #brand как в коде ниже
+const car10 = new ___Car('bcm', 400)
+car10.#brand
+car10.startEngine()
+// приватные св-ва можно модифицировать только в теле самого класса,
+// т.е. захотели переприсвоили ему значение, захотели вывели его через console.log и тд
